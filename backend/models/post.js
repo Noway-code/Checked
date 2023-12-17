@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Photo = require("./image.js");
+const Photo = require("./photo.js");
 const User = require("./user.js");
 
 const Schema = mongoose.Schema;
