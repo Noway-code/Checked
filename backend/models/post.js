@@ -4,6 +4,7 @@ const User = require("./user.js");
 
 const Schema = mongoose.Schema;
 
+// Define post schema
 const postSchema = new Schema(
 	{
 		author: {

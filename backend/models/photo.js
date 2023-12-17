@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// Define photo schema
 const photoSchema = new mongoose.Schema({
 	name: String,
 	imageUrl: String,
