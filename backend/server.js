@@ -5,16 +5,22 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 // Define routes
+const indexRoutes = require('./routes/index');
 
 // Create Express app
 const app = express();
 
 // Middleware
 app.use(express.json());
+app.use((req, res, next) => {
+	console.log("Request received for:", req.originalUrl);
+	next();
+})
 
 // Use routes
+app.use('/',indexRoutes)
 
 // Connect to DB
 app.listen(PORT, () => {
-	console.log("Server is running on port 4000");
+	console.log("Server is running on port " + PORT);
 });
