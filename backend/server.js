@@ -1,6 +1,7 @@
 const PORT = 4000;
 
 // Setup frameworks and libraries
+require('dotenv').config()
 const express = require("express");
 const mongoose = require("mongoose");
 
@@ -18,7 +19,8 @@ app.use((req, res, next) => {
 })
 
 // Use routes
-app.use('/',indexRoutes)
+app.use(indexRoutes)
+
 
 // Connect to DB
 app.listen(PORT, () => {
