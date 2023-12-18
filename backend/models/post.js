@@ -7,8 +7,7 @@ const Schema = mongoose.Schema;
 // Define post schema
 const postSchema = new Schema(
 	{
-
-		owner: {
+		author: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "User",
 			unique: true,
@@ -32,22 +31,21 @@ const postSchema = new Schema(
 			// TODO: add default photo
 		},
 
+		createdAt: {
+			type: Date,
+			default: Date.now(),
+		},
+
 		isCompleted: {
 			type: Boolean,
 			default: false,
 			required: false,
 		},
 
-		createdAt: {
-			type: Date,
-			default: Date.now(),
-		},
-
 		completedAt: {
 			type: Date,
 			required: false,
 		},
-
 	},
 	{ collection: "Posts" }
 );
