@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const URI = process.env.MONGO_URI;
 
 // Define routes
+const userRoutes = require("./routes/user");
 const indexRoutes = require("./routes/index");
 
 // Create Express app
@@ -21,7 +22,7 @@ app.use((req, res, next) => {
 });
 
 // Use routes
-
+app.use(userRoutes);
 app.use(indexRoutes);
 
 // Connect to DB
