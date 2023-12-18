@@ -23,5 +23,5 @@ This project is licensed under the [MIT License](LICENSE).
 
 - [MongoDB](https://www.mongodb.com/)
 - [Express.js](https://expressjs.com/)
-- [React](https://reactjs.org/)
+- [React Native](https://reactnative.dev/)
 - [Node.js](https://nodejs.org/)
