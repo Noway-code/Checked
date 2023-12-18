@@ -1,13 +1,26 @@
-const express = require('express');
-require('dotenv').config();
+const PORT = 4000;
+
+// Setup frameworks and libraries
+const express = require("express");
+const mongoose = require("mongoose");
+
+// Define routes
+const indexRoutes = require('./routes/index');
+
+// Create Express app
 const app = express();
-const port = process.env.PORT; // Create a .env with PORT="enter port number here"
 
-//routes
-app.get('/', (req, res) => {
-    res.send('Hello World');
+// Middleware
+app.use(express.json());
+app.use((req, res, next) => {
+	console.log("Request received for:", req.originalUrl);
+	next();
 })
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-})
+// Use routes
+app.use('/',indexRoutes)
+
+// Connect to DB
+app.listen(PORT, () => {
+	console.log("Server is running on port " + PORT);
+});
