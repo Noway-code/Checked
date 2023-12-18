@@ -1,10 +1,13 @@
 const PORT = 4000;
 
 // Setup frameworks and libraries
+
 require('dotenv').config()
 const express = require("express");
 const mongoose = require("mongoose");
 const URI = process.env.MONGO_URI;
+
+
 
 // Define routes
 const indexRoutes = require('./routes/index');
@@ -20,6 +23,7 @@ app.use((req, res, next) => {
 })
 
 // Use routes
+
 app.use(indexRoutes)
 
 // Connect to DB
@@ -31,6 +35,7 @@ mongoose.connect(URI)
 		})
 	})
 	.catch(err => console.log(err));
+
 
 
 

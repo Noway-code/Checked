@@ -3,34 +3,35 @@ const Photo = require("./photo.js");
 const User = require("./user.js");
 
 const Schema = mongoose.Schema;
-/* when posts are created createdAt is updated
-when complete we edit completedAt and isCompleted and reupload
-as a completed goal.
- */
 
 // Define post schema
 const postSchema = new Schema(
 	{
+
 		owner: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "User",
 			unique: true,
 			required: true,
 		},
+
 		title: {
 			type: String,
 			required: true,
 		},
+
 		description: {
 			type: Array,
 			default: [],
 			required: false,
 		},
+
 		photo: {
 			type: Photo.schema,
 			required: false,
 			// TODO: add default photo
 		},
+
 		isCompleted: {
 			type: Boolean,
 			default: false,
@@ -46,6 +47,7 @@ const postSchema = new Schema(
 			type: Date,
 			required: false,
 		},
+
 	},
 	{ collection: "Posts" }
 );
