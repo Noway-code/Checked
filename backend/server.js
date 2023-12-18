@@ -22,7 +22,7 @@ app.use((req, res, next) => {
 });
 
 // Use routes
-app.use(userRoutes);
+app.use("/api/user", userRoutes);
 app.use(indexRoutes);
 
 // Connect to DB
