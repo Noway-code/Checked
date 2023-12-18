@@ -42,6 +42,7 @@ const addFriend = async (req, res) => {
 	try {
 		const { userId, friendId } = req.body;
 
+		// Make sure all fields are filled in request body
 		if (!userId || !friendId) {
 			return res.status(400).json({ error: "All fields are required" });
 		}
@@ -64,7 +65,11 @@ const addFriend = async (req, res) => {
 		// Add the friend to the user
 		user.friends.push(friendId);
 
-		// Add the user to the friend
+		// =============================================================================
+		// == Here we can put in some logic for how we will implement friend requests ==
+		// =============================================================================
+
+		// For now, add the user to the friend
 		friend.friends.push(userId);
 
 		// Save changes to the DB
