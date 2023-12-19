@@ -17,6 +17,7 @@ const app = express();
 
 // Middleware
 app.use(express.json());
+app.use(bodyParser.json());
 app.use((req, res, next) => {
 	console.log("Request received for:", req.originalUrl);
 	next();
