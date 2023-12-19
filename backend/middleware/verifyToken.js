@@ -6,9 +6,11 @@ const verifyToken = (req, res, next) => {
 	// Make sure authorization token exists
 	if (!authorization) return res.status(401).json({ error: "Authorization token required" });
 
+	const token = authorization.split(" ")[1];
+
 	try {
 		// Verify token with secret key
-		const decoded = jwt.verify(authorization, process.env.SECRET_KEY);
+		const decoded = jwt.verify(token, process.env.SECRET_KEY);
 
 		// Attach user info to request (TOKEN PAYLOAD)
 		req.user = decoded;
