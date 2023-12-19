@@ -1,6 +1,33 @@
 const User = require("../models/user");
 
+// User login
+const login = async (req, res) => {
+	try {
+		const {username, password} = req.body;
+		// Make sure all fields are filled in request body
+		if (!username || !password) {
+			return res.status(400).json({error: "All fields are required"});
+		}
+
+		// Make sure user exists
+		const user = await User.findOne({username});
+		if (!user) {
+			return res.status(404).json({error: "User not found"});
+		}
+		if(!user.password === password){
+			return res.status(404).json({error: "Incorrect password"});
+		}
+
+		res.status(200).json({username, password});
+
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({error: "Internal Server Error"});
+	}
+
+}
 // Register a new user
+
 const register = async (req, res) => {
 	try {
 		const { firstName, lastName, username, password } = req.body;
@@ -87,4 +114,5 @@ const addFriend = async (req, res) => {
 module.exports = {
 	register,
 	addFriend,
+	login,
 };

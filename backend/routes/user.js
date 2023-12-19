@@ -1,9 +1,12 @@
 const express = require("express");
 
 // Controller functions
-const { register, addFriend } = require("../controllers/userController");
+const { register, addFriend ,login} = require("../controllers/userController");
+
 
 const router = express.Router();
+// Login
+router.post("/login", login);
 
 // Register
 router.post("/register", register);
