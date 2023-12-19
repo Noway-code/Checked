@@ -10,7 +10,7 @@ const verifyToken = (req, res, next) => {
 		// Verify token with secret key
 		const decoded = jwt.verify(authorization, process.env.SECRET_KEY);
 
-		// Attach user info to request
+		// Attach user info to request (TOKEN PAYLOAD)
 		req.user = decoded;
 
 		// Move to next middleware or route handler

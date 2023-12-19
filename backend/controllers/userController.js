@@ -2,34 +2,41 @@
 const User = require("../models/user");
 
 // Libraries
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 // User login
 const login = async (req, res) => {
-	const {username, password} = req.body;
+	const { username, password } = req.body;
 	try {
 		// Make sure all fields are filled in request body
 		if (!username || !password) {
-			return res.status(400).json({error: "All fields are required"});
+			return res.status(400).json({ error: "All fields are required" });
 		}
 
 		// Make sure user exists
-		const user = await User.findOne({username});
+		const user = await User.findOne({ username });
 		if (!user) {
-			return res.status(401).json({error: "User not found"});
+			return res.status(401).json({ error: "User not found" });
 		}
 
 		const match = await bcrypt.compare(password, user.password);
-		if(!match){
-			return res.status(401).json({error: "Incorrect password"});
+		if (!match) {
+			return res.status(401).json({ error: "Incorrect password" });
 		}
 
-		res.status(200).json({message:"Login Successful",username,password});
+		const token = jwt.sign(
+			{ userId: user._id, username: user.username },
+			process.env.SECRET_KEY,
+			{ expiresIn: "3d" }
+		);
+
+		res.status(200).json({ token });
 	} catch (error) {
 		console.error(error);
-		res.status(500).json({error: "Internal Server Error"});
+		res.status(500).json({ error: "Internal Server Error" });
 	}
-}
+};
 
 // Register a new user
 const register = async (req, res) => {
