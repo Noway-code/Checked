@@ -18,6 +18,8 @@ const addFriend = async (req, res) => {
             return res.status(404).json({ error: "User not found" });
         } else if (!friend) {
             return res.status(404).json({ error: "Friend not found" });
+        } else if(userId === friendId) {
+            return res.status(404).json({ error: "You cannot be friends with yourself" });
         }
 
         // Make sure they aren't already friends
@@ -80,7 +82,50 @@ const getAllFriends = async (req, res) => {
     }
 };
 
+const removeFriend = async (req, res) => {
+    try {
+        const { userId, friendId } = req.body;
+
+        // Make sure all fields are filled in request body
+        if (!userId || !friendId) {
+            return res.status(400).json({ error: "All fields are required" });
+        }
+
+        // Make sure both users exist
+        const user = await User.findById(userId);
+        const friend = await User.findById(friendId);
+
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        } else if (!friend) {
+            return res.status(404).json({ error: "Friend not found" });
+        }
+
+        // Make sure they are already friends
+        if (!user.friends.includes(friendId)) {
+            return res.status(400).json({ error: "Users are not friends" });
+        }
+
+        // Remove the friend from the user
+        user.friends.pull(friendId);
+
+        // For now, remove the user from the friend
+        friend.friends.pull(userId);
+
+        // Save changes to the DB
+        await user.save();
+        await friend.save();
+
+        res.json({ message: "Friend removed successfully" });
+    } catch (error){
+        // Catch any errors
+        console.error(error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+}
+
 module.exports = {
     addFriend,
     getAllFriends,
+    removeFriend,
 };
