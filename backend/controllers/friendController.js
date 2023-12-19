@@ -43,7 +43,7 @@ const addFriend = async (req, res) => {
         await friend.save();
 
         res.json({ message: "Friend added successfully" });
-    } catch {
+    } catch (error) {
         // Catch any errors
         console.error(error);
         res.status(500).json({ error: "Internal Server Error" });
