@@ -17,6 +17,7 @@ router.post("/add-friend", addFriend);
 // Get all friends
 router.get("/friends", getAllFriends);
 
+// Delete a single friend
 router.delete("/remove-friend", removeFriend);
 
 module.exports = router;

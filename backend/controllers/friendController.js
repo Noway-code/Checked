@@ -1,6 +1,7 @@
 // Models
 const User = require("../models/user");
 
+// Add someone to friends list
 const addFriend = async (req, res) => {
     try {
         const { userId, friendId } = req.body;
@@ -49,6 +50,7 @@ const addFriend = async (req, res) => {
     }
 };
 
+// Returns the users list of friends
 const getAllFriends = async (req, res) => {
     try {
         const { userId } = req.body;
@@ -82,6 +84,7 @@ const getAllFriends = async (req, res) => {
     }
 };
 
+// Remove a friend from the user's friends list
 const removeFriend = async (req, res) => {
     try {
         const { userId, friendId } = req.body;
