@@ -20,17 +20,20 @@ const login = async (req, res) => {
 			return res.status(401).json({ error: "User not found" });
 		}
 
+		// Make sure password is correct
 		const match = await bcrypt.compare(password, user.password);
 		if (!match) {
 			return res.status(401).json({ error: "Incorrect password" });
 		}
 
+		// Generate JWT with user information
 		const token = jwt.sign(
 			{ userId: user._id, username: user.username },
 			process.env.SECRET_KEY,
 			{ expiresIn: "3d" }
 		);
 
+		// Send response with token
 		res.status(200).json({ token });
 	} catch (error) {
 		console.error(error);
