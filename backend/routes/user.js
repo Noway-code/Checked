@@ -17,9 +17,9 @@ router.post("/register", register);
 router.post("/add-friend", verifyToken, addFriend);
 
 // Get all friends
-router.get("/friends", getAllFriends);
+router.get("/friends", verifyToken, getAllFriends);
 
 // Delete a single friend
-router.delete("/remove-friend", removeFriend);
+router.delete("/remove-friend", verifyToken, removeFriend);
 
 module.exports = router;
