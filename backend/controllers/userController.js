@@ -1,4 +1,35 @@
+// Models
 const User = require("../models/user");
+
+// Libraries
+const bcrypt = require('bcrypt');
+
+// User login
+const login = async (req, res) => {
+	const {username, password} = req.body;
+	try {
+		// Make sure all fields are filled in request body
+		if (!username || !password) {
+			return res.status(400).json({error: "All fields are required"});
+		}
+
+		// Make sure user exists
+		const user = await User.findOne({username});
+		if (!user) {
+			return res.status(401).json({error: "User not found"});
+		}
+
+		const match = await bcrypt.compare(password, user.password);
+		if(!match){
+			return res.status(401).json({error: "Incorrect password"});
+		}
+
+		res.status(200).json({message:"Login Successful",username,password});
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({error: "Internal Server Error"});
+	}
+}
 
 // Register a new user
 const register = async (req, res) => {
@@ -17,14 +48,16 @@ const register = async (req, res) => {
 			return res.status(409).json({ error: "Username is already being used" }); // response code 409 for conflict
 		}
 
-		// TODO: hash password
+		// Hashing Passwords
+		const salt = await bcrypt.genSalt(10);
+		const hashedPass = await bcrypt.hash(password, salt);
 
 		// Create the new user
 		const newUser = new User({
 			firstName,
 			lastName,
 			username,
-			password,
+			password: hashedPass,
 		});
 
 		// Save the new user to the DB
@@ -87,4 +120,5 @@ const addFriend = async (req, res) => {
 module.exports = {
 	register,
 	addFriend,
+	login,
 };
