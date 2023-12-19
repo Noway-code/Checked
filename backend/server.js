@@ -10,6 +10,7 @@ const URI = process.env.MONGO_URI;
 
 // Define routes
 const userRoutes = require("./routes/user");
+const postRoutes = require("./routes/post");
 const indexRoutes = require("./routes/index");
 
 // Create Express app
@@ -25,6 +26,7 @@ app.use((req, res, next) => {
 
 // Use routes
 app.use("/api/user", userRoutes);
+app.use("/api/post", postRoutes);
 app.use(indexRoutes);
 
 // Connect to DB
