@@ -4,7 +4,9 @@ const User = require("../models/user");
 
 const makePost = async (req, res) => {
 	try {
-		const { author, title, description, photo } = req.body;
+		const { userId } = req.user;
+		const { title, description, photo } = req.body;
+		const author = userId;
 
 		// Make sure that author and title is given
 		if (!author || !title) {
@@ -21,6 +23,9 @@ const makePost = async (req, res) => {
 
 		// Save the post to the DB
 		const savedPost = await newPost.save();
+
+		// Update the User's posts array
+		await User.findByIdAndUpdate(author, { $push: { posts: savedPost._id } });
 
 		res.status(201).json({ message: "Post added successfully", post: savedPost });
 	} catch (error) {
@@ -39,24 +44,13 @@ const getPosts = async (req, res) => {
 		}
 
 		// Make sure user exists
-		const user = await User.findById(userId);
+		const user = await User.findById(userId).populate("posts");
 
 		if (!user) {
 			return res.status(404).json({ error: "User not found" });
 		}
 
-		// Get all posts
-		const posts = await User.find(
-			{ _id: { $in: user.posts } },
-			{ username: 1, firstName: 1, lastName: 1 }
-		);
-
-		// Return message if no posts
-		if (posts.length === 0) {
-			return res.status(200).json({ message: "You don't have any posts." });
-		}
-
-		res.status(200).json(friends);
+		res.status(200).json({ userId, posts: user.posts });
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({ error: "Internal Server Error" });
