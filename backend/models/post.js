@@ -10,7 +10,6 @@ const postSchema = new Schema(
 		author: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "User",
-			unique: true,
 			required: true,
 		},
 
@@ -20,8 +19,7 @@ const postSchema = new Schema(
 		},
 
 		description: {
-			type: Array,
-			default: [],
+			type: String,
 			required: false,
 		},
 

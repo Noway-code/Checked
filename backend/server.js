@@ -5,10 +5,12 @@ const PORT = 4000;
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 const URI = process.env.MONGO_URI;
 
 // Define routes
 const userRoutes = require("./routes/user");
+const postRoutes = require("./routes/post");
 const indexRoutes = require("./routes/index");
 
 // Create Express app
@@ -16,6 +18,7 @@ const app = express();
 
 // Middleware
 app.use(express.json());
+app.use(bodyParser.json());
 app.use((req, res, next) => {
 	console.log("Request received for:", req.originalUrl);
 	next();
@@ -23,6 +26,7 @@ app.use((req, res, next) => {
 
 // Use routes
 app.use("/api/user", userRoutes);
+app.use("/api/post", postRoutes);
 app.use(indexRoutes);
 
 // Connect to DB

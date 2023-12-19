@@ -22,11 +22,12 @@ const userSchema = new Schema(
 			required: false,
 		},
 
-		posts: {
-			type: Array,
-			default: [],
-			required: false,
-		},
+		posts: [
+			{
+				type: mongoose.Schema.Types.ObjectId,
+				ref: "Post",
+			},
+		],
 	},
 	{ collection: "Users" }
 );
