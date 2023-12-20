@@ -34,6 +34,44 @@ const makePost = async (req, res) => {
 	}
 };
 
+
+const completePost = async (req, res) => {
+	try {
+		const { userId } = req.user;
+		// Feel free to switch postId from body to params
+		// or header I wasn't sure which would be best.
+		const { postId } = req.body;
+
+		if (!postId) {
+			return res.status(400).json({ error: "Post ID is required" });
+		}
+
+		const user = await User.findById(userId).populate("posts");
+		if (!user) {
+			return res.status(404).json({ error: "User not found" });
+		}
+
+		const post = await Post.findById(postId);
+
+		if (!post) {
+			return res.status(404).json({ error: "Post not found" });
+		}
+
+		if (post.isCompleted) {
+			return res.status(400).json({ error: "Post is already completed" });
+		}
+
+		post.isCompleted = true;
+		post.completedAt = Date.now();
+		const savedPost = await post.save();
+
+		res.status(200).json({ message: "Post marked as completed", post: savedPost });
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ error: "Internal Server Error" });
+	}
+}
+
 const getPosts = async (req, res) => {
 	try {
 		const { userId } = req.user;
@@ -60,4 +98,5 @@ const getPosts = async (req, res) => {
 module.exports = {
 	makePost,
 	getPosts,
+	completePost,
 };
