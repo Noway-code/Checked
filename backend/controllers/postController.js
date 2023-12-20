@@ -34,6 +34,7 @@ const makePost = async (req, res) => {
 	}
 };
 
+
 const completePost = async (req, res) => {
 	try {
 		// Feel free to switch postId from body to params
@@ -157,4 +158,5 @@ module.exports = {
 	getPosts,
 	completePost,
 	deletePost,
+
 };

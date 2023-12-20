@@ -1,7 +1,9 @@
 const express = require("express");
 
 // Controller functions
+
 const { makePost, getPosts, deletePost, completePost } = require("../controllers/postController");
+
 const verifyToken = require("../middleware/verifyToken");
 
 const router = express.Router();
