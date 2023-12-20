@@ -41,14 +41,14 @@ const completePost = async (req, res) => {
 		// or header I wasn't sure which would be best.
 		const { userId } = req.user;
 		const { postId } = req.body;
-		const { title, description } = req.body;
+		const { description } = req.body;
 
 		// Check if the postId is provided
 		if (!postId) {
 			return res.status(400).json({ error: "Post ID is required" });
 		}
 
-		if(!title||!description){
+		if(!description){
 			return res.status(400).json({ error: "Title and description are required" });
 		}
 
@@ -72,7 +72,6 @@ const completePost = async (req, res) => {
 		}
 
 		// Mark the post as completed and new post params
-		post.title = title;
 		post.description = description;
 		post.isCompleted = true;
 		post.completedAt = Date.now();
