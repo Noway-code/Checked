@@ -87,6 +87,49 @@ const completePost = async (req, res) => {
 	}
 }
 
+const deletePost = async (req, res) => {
+	try {
+		const { userId } = req.user;
+		const { postId } = req.body; // Change from req.body to req.params to get the postId from the URL
+
+		// Check if the postId is provided
+		if (!postId) {
+			return res.status(400).json({ error: "Post ID is required" });
+		}
+
+		// Find the user by ID
+		const user = await User.findById(userId);
+		if (!user) {
+			return res.status(404).json({ error: "User not found" });
+		}
+
+		// Find the post by ID
+		const post = await Post.findById(postId);
+
+		// Check if the post exists
+		if (!post) {
+			return res.status(404).json({ error: "Post not found" });
+		}
+
+		// Check if the user is the author of the post
+		if (post.author.toString() !== userId) {
+			return res.status(403).json({ error: "You do not have permission to delete this post" });
+		}
+
+		// Remove the post ID from the user's posts array
+		await User.findByIdAndUpdate(userId, { $pull: { posts: postId } });
+
+		// Delete the post
+		await Post.findByIdAndDelete(postId);
+
+		res.status(200).json({ message: "Post deleted successfully" });
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ error: "Internal Server Error" });
+	}
+};
+
+
 const getPosts = async (req, res) => {
 	try {
 		const { userId } = req.user;
@@ -114,4 +157,6 @@ module.exports = {
 	makePost,
 	getPosts,
 	completePost,
+	deletePost,
+
 };
