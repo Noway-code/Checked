@@ -35,6 +35,49 @@ const makePost = async (req, res) => {
 };
 
 
+const editPost = async (req, res) => {
+	try {
+		const { userId } = req.user;
+		const { postId } = req.body; // Change from req.body to req.params to get the postId from the URL
+		const { description } = req.body;
+
+		// Check if the postId is provided
+		if (!postId) {
+			return res.status(400).json({ error: "Post ID is required" });
+		}
+
+		// Find the user by ID
+		const user = await User.findById(userId);
+		if (!user) {
+			return res.status(404).json({ error: "User not found" });
+		}
+
+		// Find the post by ID
+		const post = await Post.findById(postId);
+
+		// Check if the post exists
+		if (!post) {
+			return res.status(404).json({ error: "Post not found" });
+		}
+
+		// Check if the user is the author of the post
+		if (post.author.toString() !== userId) {
+			return res.status(403).json({ error: "You do not have permission to edit this post" });
+		}
+
+		// Update the post description
+		post.description = description;
+
+		// Save the updated post
+		const savedPost = await post.save();
+
+		res.status(200).json({ message: "Post description updated successfully", post: savedPost });
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ error: "Internal Server Error" });
+	}
+};
+
 const completePost = async (req, res) => {
 	try {
 		// Feel free to switch postId from body to params
@@ -66,6 +109,11 @@ const completePost = async (req, res) => {
 			return res.status(404).json({ error: "Post not found" });
 		}
 
+		// Check if the user is the author of the post
+		if (post.author.toString() !== userId) {
+			return res.status(403).json({ error: "You do not have permission to complete this post" });
+		}
+
 		// Check if the post is already completed
 		if (post.isCompleted) {
 			return res.status(400).json({ error: "Post is already completed" });
@@ -89,7 +137,7 @@ const completePost = async (req, res) => {
 const deletePost = async (req, res) => {
 	try {
 		const { userId } = req.user;
-		const { postId } = req.body; // Change from req.body to req.params to get the postId from the URL
+		const { postId } = req.body;
 
 		// Check if the postId is provided
 		if (!postId) {
@@ -128,7 +176,6 @@ const deletePost = async (req, res) => {
 	}
 };
 
-
 const getPosts = async (req, res) => {
 	try {
 		const { userId } = req.user;
@@ -155,6 +202,7 @@ const getPosts = async (req, res) => {
 module.exports = {
 	makePost,
 	getPosts,
+	editPost,
 	completePost,
 	deletePost,
 
