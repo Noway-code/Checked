@@ -92,6 +92,7 @@ const updateUserSetting = async (req, res) => {
 		}
 
 		// Define the update object based on the provided settingName
+		// settingValue should be set by a dropdown or switch using options in the schema.
 		const updateObject = { $set: { [`settings.${settingName}`]: settingValue } };
 
 		// Update the user's settings

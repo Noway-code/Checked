@@ -30,13 +30,6 @@ const userSchema = new Schema(
 		],
 
 		settings: {
-			// darkmode not to be implemented yet,
-			// I just needed more settings to test
-			lightMode: {
-				type: String,
-				enum: ["dark", "light", "every element is the color white"],
-				default: "dark", // Set the default visibility based on your preference
-			},
 			postVisibility: {
 				type: Boolean,
 				default: true,
