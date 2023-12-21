@@ -28,6 +28,13 @@ const userSchema = new Schema(
 				ref: "Post",
 			},
 		],
+
+		settings: {
+			postsPrivate: {
+				type: Boolean,
+				default: true,
+			},
+		},
 	},
 	{ collection: "Users" }
 );

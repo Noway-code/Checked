@@ -1,7 +1,7 @@
 const express = require("express");
 
 // Controller functions
-const { register, login } = require("../controllers/userController");
+const { register, login, updateUserSetting } = require("../controllers/userController");
 const { addFriend, getAllFriends, removeFriend } = require("../controllers/friendController");
 const verifyToken = require("../middleware/verifyToken");
 
@@ -21,5 +21,8 @@ router.get("/friends", verifyToken, getAllFriends);
 
 // Delete a single friend
 router.delete("/remove-friend", verifyToken, removeFriend);
+
+// Update user settings
+router.put("/settings",verifyToken,updateUserSetting)
 
 module.exports = router;
