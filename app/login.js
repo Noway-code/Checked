@@ -26,11 +26,15 @@ const styles = StyleSheet.create({
    container:{
       flex:1,
       flexDirection:"column", 
+      justifyContent:"center",
       alignItems:"center",
+
+      padding:20,
    },
    formWrapper: {
+      flex:1,
       flexDirection:"column",
-      justifyContent:"flex-start",
+      justifyContent:"center",
 
       width:"80%",
       padding:20,
@@ -40,7 +44,6 @@ const styles = StyleSheet.create({
       borderColor:'black'
    },
    buttonGroup: {
-      flex:1,
       flexDirection:"row",
       justifyContent:"center",
       alignItems:"center",

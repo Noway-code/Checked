@@ -5,7 +5,7 @@ export default function Button({ label, onPress })
 {
    return(
       <View>
-         <Pressable onPress={onPress}>
+         <Pressable onPress={onPress} style={styles.button}>
             <Text>{label}</Text>
          </Pressable>
       </View>
@@ -14,10 +14,12 @@ export default function Button({ label, onPress })
 
 const styles = StyleSheet.create({
    buttonContainer:{
-
+      
    },
    button: {
-
+      borderWidth:2,
+      borderStyle:"solid",
+      borderColor:"black"
    },
    buttonLabel: {
 
