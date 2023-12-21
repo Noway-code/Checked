@@ -81,7 +81,35 @@ const register = async (req, res) => {
 	}
 };
 
+const updateUserSetting = async (req, res) => {
+	try {
+		const { userId } = req.user;
+		const { settingName, settingValue } = req.body;
+
+		// Check if the settingName and settingValue are provided
+		if (!settingName || settingValue === undefined) {
+			return res.status(400).json({ error: "Setting name and value are required" });
+		}
+
+		// Define the update object based on the provided settingName
+		const updateObject = { $set: { [`settings.${settingName}`]: settingValue } };
+
+		// Update the user's settings
+		const updatedUser = await User.findByIdAndUpdate(userId, updateObject, { new: true });
+
+		if (!updatedUser) {
+			return res.status(404).json({ error: "User not found" });
+		}
+
+		res.status(200).json({ message: "User settings updated successfully", user: updatedUser });
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ error: "Internal Server Error" });
+	}
+};
+
 module.exports = {
 	register,
 	login,
+	updateUserSetting,
 };
