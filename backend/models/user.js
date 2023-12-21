@@ -30,7 +30,7 @@ const userSchema = new Schema(
 		],
 
 		settings: {
-			postVisibility: {
+			postsPrivate: {
 				type: Boolean,
 				default: true,
 			},
