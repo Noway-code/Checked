@@ -8,6 +8,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web"
   },
+  "proxy": "http://localhost:4000",
   "dependencies": {
     "@expo/webpack-config": "^19.0.0",
     "axios": "^1.6.2",

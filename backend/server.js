@@ -5,6 +5,7 @@ const PORT = 4000;
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require('cors');
 const bodyParser = require("body-parser");
 const URI = process.env.MONGO_URI;
 
@@ -18,6 +19,7 @@ const app = express();
 
 // Middleware
 app.use(express.json());
+app.use(cors());
 app.use(bodyParser.json());
 app.use((req, res, next) => {
 	console.log("Request received for:", req.originalUrl);
