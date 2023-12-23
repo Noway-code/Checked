@@ -1,4 +1,5 @@
-import { StyleSheet, View, Text, TextInput} from 'react-native';
+import React from 'react';
+import {StyleSheet, View, Text, TextInput, ToastAndroid } from 'react-native';
 import Button from '../Button';
 
 import { useState } from 'react';
@@ -18,7 +19,7 @@ export default function LoginForm() {
          <TextInput placeholder="Password" 
             style={styles.formInput}
             onChangeText={setPassword}/>
-         <Button label="Login"onPress={() => handleLogin(username, password)}/>
+         <Button label="Login" onPress={() => handleLogin(username, password)}/>
       </View>
    )
 }
@@ -49,7 +50,13 @@ const handleLogin = async (user, pass) => {
          if (res.error)
          {
             console.log(res.error);
+            ToastAndroid.show(res.error, ToastAndroid.SHORT);
          }
+        else
+        {
+            console.log("Login Successful!");
+            ToastAndroid.show("Login Successful!", ToastAndroid.SHORT);
+        }
          router.replace('/')
       })
       .catch((error) => {
