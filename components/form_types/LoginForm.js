@@ -37,8 +37,6 @@ const handleLogin = async (user, pass) => {
       url: url,
       headers: {
          "Content-Type": "application/json",
-         "Access-Control-Allow-Origin": "*",
-         "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
       },
       data: js,
    }
@@ -50,6 +48,7 @@ const handleLogin = async (user, pass) => {
          {
             console.log(res.error);
          }
+         console.log(res.message)
          router.replace('/')
       })
       .catch((error) => {

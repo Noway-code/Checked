@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text } from "react-native-web";
+import { StyleSheet, View, Text, StatusBar } from "react-native";
 import { useState } from "react";
 
 import Button from "../components/Button";
@@ -7,18 +7,16 @@ export default function Page(){
    const [isLogin, setIsLogin] = useState(true);
    return(
       <View style={styles.container}>
-         <View>
-            <Text>Login Page</Text>
-         </View>
          <View style={styles.formWrapper}>
             <View style={styles.buttonGroup}>
                <Button label="Login" onPress={()=>setIsLogin(true)}/>
                <Button label="Register" onPress={()=>setIsLogin(false)}/>
             </View>
-            { (isLogin) ? <Form formType="login"/> : <Form formType="register" /> }
+            <View>{(isLogin)?<Form formType="login"/>:<Form formType="register" />}
+            </View>
          </View>
+         <StatusBar style="auto" />
       </View>
-      
    )
    
 }

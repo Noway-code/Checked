@@ -7,9 +7,6 @@ const PlaceholderImage = require('./assets/bocchi.png')
 export default function App() {
   return (
     <View style={styles.container}>
-      <View style={styles.imageContainer}>
-         <ImageViewer placeholderImageSource={PlaceholderImage}/>
-      </View>
       <StatusBar style="auto" />
     </View>
   );
