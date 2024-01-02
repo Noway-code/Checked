@@ -5,6 +5,7 @@ const PORT = 4000;
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require('cors');
 const bodyParser = require("body-parser");
 const URI = process.env.MONGO_URI;
 
@@ -16,7 +17,17 @@ const indexRoutes = require("./routes/index");
 // Create Express app
 const app = express();
 
+//Configure CORS
+// #TODO - Change origin to frontend url, do not use wildcard.
+const corsOptions = {
+	origin: '*',
+	methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+	credentials: true,
+	optionsSuccessStatus: 204,
+};
+
 // Middleware
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(bodyParser.json());
 app.use((req, res, next) => {
