@@ -17,9 +17,18 @@ const indexRoutes = require("./routes/index");
 // Create Express app
 const app = express();
 
+//Configure CORS
+// #TODO - Change origin to frontend url, do not use wildcard.
+const corsOptions = {
+	origin: '*',
+	methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+	credentials: true,
+	optionsSuccessStatus: 204,
+};
+
 // Middleware
+app.use(cors(corsOptions));
 app.use(express.json());
-app.use(cors());
 app.use(bodyParser.json());
 app.use((req, res, next) => {
 	console.log("Request received for:", req.originalUrl);
