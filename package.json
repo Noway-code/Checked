@@ -11,6 +11,7 @@
   "proxy": "http://localhost:4000",
   "dependencies": {
     "@expo/webpack-config": "^19.0.0",
+    "@react-native-community/cli": "^13.2.0",
     "axios": "^1.6.2",
     "expo": "~49.0.15",
     "expo-constants": "~14.4.2",
@@ -29,6 +30,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
+    "babel-plugin-module-resolver": "^5.0.0",
     "react-native-dotenv": "^3.4.9"
   },
   "private": true
