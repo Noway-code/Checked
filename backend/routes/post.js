@@ -2,7 +2,7 @@ const express = require("express");
 
 // Controller functions
 
-const { makePost, getPosts, deletePost, completePost, editPost } = require("../controllers/postController");
+const {makePost, getPosts, deletePost, completePost, editPost} = require("../controllers/postController");
 
 const verifyToken = require("../middleware/verifyToken");
 

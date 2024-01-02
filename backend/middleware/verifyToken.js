@@ -1,10 +1,10 @@
 const jwt = require("jsonwebtoken");
 
 const verifyToken = (req, res, next) => {
-	const { authorization } = req.headers;
+	const {authorization} = req.headers;
 
 	// Make sure authorization token exists
-	if (!authorization) return res.status(401).json({ error: "Authorization token required" });
+	if (!authorization) return res.status(401).json({error: "Authorization token required"});
 
 	const token = authorization.split(" ")[1];
 
@@ -20,7 +20,7 @@ const verifyToken = (req, res, next) => {
 	} catch (error) {
 		// Catch any errors (most likely an invalid token)
 		console.error(error);
-		return res.status(401).json({ error: "Unauthorized request" });
+		return res.status(401).json({error: "Unauthorized request"});
 	}
 };
 

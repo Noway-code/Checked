@@ -1,8 +1,8 @@
 const express = require("express");
 
 // Controller functions
-const { register, login, updateUserSetting } = require("../controllers/userController");
-const { addFriend, getAllFriends, removeFriend } = require("../controllers/friendController");
+const {register, login, updateUserSetting} = require("../controllers/userController");
+const {addFriend, getAllFriends, removeFriend} = require("../controllers/friendController");
 const verifyToken = require("../middleware/verifyToken");
 
 const router = express.Router();
@@ -23,6 +23,6 @@ router.get("/friends", verifyToken, getAllFriends);
 router.delete("/remove-friend", verifyToken, removeFriend);
 
 // Update user settings
-router.put("/settings",verifyToken,updateUserSetting)
+router.put("/settings", verifyToken, updateUserSetting)
 
 module.exports = router;

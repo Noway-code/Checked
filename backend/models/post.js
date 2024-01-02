@@ -45,7 +45,7 @@ const postSchema = new Schema(
 			required: false,
 		},
 	},
-	{ collection: "Posts" }
+	{collection: "Posts"}
 );
 
 module.exports = mongoose.model("Post", postSchema);
