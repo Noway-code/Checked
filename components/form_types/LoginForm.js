@@ -25,7 +25,6 @@ export default function LoginForm() {
 // function to handle login
 const handleLogin = async (username, password) => {
 	// set url for request
-	console.log(API_URL)
 	const url = `${API_URL}/api/user/login`;
 	// set data for request
 	let obj = {"username": username, "password": password};
