@@ -13,6 +13,9 @@ const styles = StyleSheet.create({
       borderWidth:3,
       borderStyle:"solid",
       borderColor:"black",
+	  borderRadius:10,
+	  paddingLeft:10,
+	  padding:5,
    }
 })
 
