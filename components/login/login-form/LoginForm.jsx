@@ -27,7 +27,7 @@ export default function LoginForm() {
    )
 }
 
-// REQUIRED: must have "API_URL=http://(your ipv4):4000" in .env file in root directory.
+// REQUIRED: must have "EXPO_PUBLIC_API_URL=(your ipv4 address)" in .env file in root directory.
 // function to handle login
 const handleLogin = async (username, password) => {
    // set url for request
@@ -52,15 +52,12 @@ const handleLogin = async (username, password) => {
          let res = response.data;
          if (res.error) {
             console.log(res.error);
-            // ToastAndroid.show(res.error, ToastAndroid.SHORT);
          }
          else {
             console.log("Login Successful! User's Token: " + res.token);
-            // ToastAndroid.show("Login Successful!", ToastAndroid.SHORT);
         }
       })
       .catch((error) => {
           console.log(error)
-         //  ToastAndroid.show("Failed", ToastAndroid.SHORT);
       });
 }
