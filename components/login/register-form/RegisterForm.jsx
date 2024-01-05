@@ -1,8 +1,10 @@
 import { StyleSheet, View, Text, TextInput} from 'react-native';
-import Button from '../Button';
+
+import styles from './registerform.style'
 
 import { useState } from 'react';
 import axios from 'axios';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 // form type for user registration
 export default function RegisterForm() {
    const [firstName, setFirstName] = useState("");
@@ -24,13 +26,17 @@ export default function RegisterForm() {
          <TextInput placeholder="Password" 
             style={styles.formInput} 
             onChangeText={setPassword}/>
-         <Button label="Register" onPress= {() => handleRegister(firstName, lastName, username, password)}/>
+         <TouchableOpacity onPress= {() => handleRegister(firstName, lastName, username, password)}>
+            <Text>Register</Text>
+         </TouchableOpacity>
       </View>
    ) 
 }
+
+// REQUIRED: must have "EXPO_PUBLIC_API_URL=(your ipv4 address)" in .env file in root directory.
 const handleRegister = async (first, last, user, pass) => {
    // set url for request
-   const url = "http://localhost:4000/api/user/register"
+   const url = `http://${process.env.EXPO_PUBLIC_API_URL}:4000/api/user/register`
    // set data for request
    let obj = { "firstName":first, "lastName":last, "username":user, "password":pass };
    // turn request into json objet
@@ -60,18 +66,3 @@ const handleRegister = async (first, last, user, pass) => {
       });
    
 } 
-const styles = StyleSheet.create({
-   formContainer: {
-      padding:20,
-      flexDirection:"column",
-      alignItems:"center",
-      gap:10,
-      width:"100%"
-   },
-   formInput: {
-      width:"100%",
-      borderWidth:3,
-      borderStyle:"solid",
-      borderColor:"black",
-   }
-})

@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, Image} from 'react-native';
 
 import ImageViewer from './components/ImageViewer';
 
-const PlaceholderImage = require('./assets/bocchi.png')
 export default function App() {
   return (
     <View style={styles.container}>

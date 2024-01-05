@@ -1,25 +1,39 @@
-import { StyleSheet, View, Text, StatusBar } from "react-native";
+import {StyleSheet, View, Text, SafeAreaView, TouchableOpacity } from "react-native";
 import { useState } from "react";
 
-import Button from "../components/Button";
-import Form from "../components/Form";
-export default function Page(){
+import { LoginForm, RegisterForm } from "../components";
+
+
+export default function LoginPage(){
    const [isLogin, setIsLogin] = useState(true);
+   
+   const displayForm = () => {
+      if (isLogin) {
+         return <LoginForm />
+      }
+      else {
+         return <RegisterForm />
+      }
+   }
    return(
-      <View style={styles.container}>
-         <View style={styles.formWrapper}>
-            <View style={styles.buttonGroup}>
-               <Button label="Login" onPress={()=>setIsLogin(true)}/>
-               <Button label="Register" onPress={()=>setIsLogin(false)}/>
-            </View>
-            <View>{(isLogin)?<Form formType="login"/>:<Form formType="register" />}
+      <SafeAreaView>
+         <View style={styles.container}>
+            <View style={styles.formWrapper}>
+               <View style={styles.buttonGroup}>
+                  <TouchableOpacity onPress={()=>setIsLogin(true)}>
+                     <Text>Login</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={()=>setIsLogin(false)}>
+                     <Text>RegisterForm</Text>
+                  </TouchableOpacity>
+               </View>
+               {displayForm()}
             </View>
          </View>
-         <StatusBar style="auto" />
-      </View>
+      </SafeAreaView> 
    )
-   
 }
+
 const styles = StyleSheet.create({
    container:{
       flex:1,

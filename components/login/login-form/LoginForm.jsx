@@ -1,11 +1,12 @@
 import React from 'react';
-import {StyleSheet, View, Text, TextInput, ToastAndroid } from 'react-native';
-import {API_URL} from '@env';
-import Button from '../Button';
+import {StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
 import { router } from 'expo-router';
 import axios from 'axios';
+
+import styles from './loginform.style'
 // form type for app login
+
 export default function LoginForm() {
    const [username, setUsername] = useState("");
    const [password, setPassword] = useState("");
@@ -19,7 +20,9 @@ export default function LoginForm() {
          <TextInput placeholder="Password"
             style={styles.formInput}
             onChangeText={setPassword}/>
-         <Button label="Login" onPress={() => handleLogin(username, password)}/>
+         <TouchableOpacity onPress={() => handleLogin(username, password)}>
+            <Text>Login</Text>
+         </TouchableOpacity>
       </View>
    )
 }
@@ -28,7 +31,7 @@ export default function LoginForm() {
 // function to handle login
 const handleLogin = async (username, password) => {
    // set url for request
-   const url = `${API_URL}/api/user/login`;
+   const url = `http://${process.env.EXPO_PUBLIC_API_URL}:4000/api/user/login`;
    // set data for request
    let obj = { "username":username, "password":password };
    // turn request into json objet
@@ -49,30 +52,15 @@ const handleLogin = async (username, password) => {
          let res = response.data;
          if (res.error) {
             console.log(res.error);
-            ToastAndroid.show(res.error, ToastAndroid.SHORT);
+            // ToastAndroid.show(res.error, ToastAndroid.SHORT);
          }
-        else {
+         else {
             console.log("Login Successful! User's Token: " + res.token);
-            ToastAndroid.show("Login Successful!", ToastAndroid.SHORT);
+            // ToastAndroid.show("Login Successful!", ToastAndroid.SHORT);
         }
       })
       .catch((error) => {
           console.log(error)
-          ToastAndroid.show("Failed", ToastAndroid.SHORT);
+         //  ToastAndroid.show("Failed", ToastAndroid.SHORT);
       });
 }
-const styles = StyleSheet.create({
-   formContainer: {
-      padding:20,
-      flexDirection:"column",
-      alignItems:"center",
-      gap:10,
-      width:"100%"
-   },
-   formInput: {
-      width:"100%",
-      borderWidth:3,
-      borderStyle:"solid",
-      borderColor:"black",
-   }
-})
