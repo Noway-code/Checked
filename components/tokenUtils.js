@@ -1,6 +1,7 @@
 // Util functions for working with JWT tokens
 import * as SecureStore from 'expo-secure-store';
 import * as Crypto from 'expo-crypto';
+import { decode as atob } from 'base-64';
 
 export const decodeToken = async () => {
 	try {
@@ -9,7 +10,7 @@ export const decodeToken = async () => {
 
 		// Decode the token
 		const [header, payload, signature] = token.split('.');
-		const decodedPayload = JSON.parse(Buffer.from(payload, 'base64').toString());
+		const decodedPayload = JSON.parse(atob(payload));
 
 		return decodedPayload;
 	} catch (error) {

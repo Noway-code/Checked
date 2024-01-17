@@ -12,6 +12,8 @@
   "dependencies": {
     "@expo/webpack-config": "^19.0.0",
     "axios": "^1.6.2",
+    "babel-preset-expo": "^9.5.2",
+    "base-64": "^1.0.0",
     "crypto": "^1.0.1",
     "expo": "~49.0.15",
     "expo-constants": "~14.4.2",
