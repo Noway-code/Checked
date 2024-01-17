@@ -1,21 +1,34 @@
-import { View, Text, TouchableOpacity } from "react-native";
-import { Link, Stack, useRouter } from "expo-router";
+import { View, Text, Image, SafeAreaView, TouchableOpacity } from "react-native";
+import { useState } from "react";
+import { Stack } from "expo-router";
 
-export default function Home(){
-   const router = useRouter();
-   return (
-      <View>
-         <Stack.Screen 
-            options={{
-               headerTitle: "Login"
-            }}
-         />
-         <Text>Home Page</Text>
-         <TouchableOpacity onPress={() => router.push("/login")}>
-            <Text>Login test</Text>
-         </TouchableOpacity>
-         <Link href="/login"><Text>Login</Text></Link>
-         <Link href="/user-page"><Text>User Page</Text></Link>
-      </View>
+import { LoginForm, RegisterForm } from "../components";
+
+const logo = require('../assets/images/logo.png')
+export default function LoginPage(){
+   const [isLogin, setIsLogin] = useState(true);
+   const displayForm = () => {
+      if (isLogin) {
+         return <LoginForm />
+      }
+      else {
+         return <RegisterForm />
+      }
+   }
+   return(
+      <SafeAreaView style={{ flex: 1, justifyContent: "center", alignItems: "center"}}>
+         <Stack.Screen />
+         <View >
+            <TouchableOpacity onPress={()=>setIsLogin(true)}>
+               <Text>Login</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={()=>setIsLogin(false)}>
+               <Text>RegisterForm</Text>
+            </TouchableOpacity>
+         </View>
+         {displayForm()}
+
+      </SafeAreaView> 
    )
 }
+

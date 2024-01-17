@@ -71,7 +71,7 @@ export default function LoginForm() {
             // Store the token securely
             await SecureStore.setItemAsync('userToken', res.token);
             console.log("Login Successful! User's Token: " + res.token);
-            router.push('/');
+            router.push('/home');
          }
       } catch (error) {
          console.log(error);
