@@ -1,52 +1,34 @@
-import React from "react";
-import {StyleSheet, Text, View} from "react-native";
-import { Link } from "expo-router";
-import ApiTestButton from "../components/ApiTestButton";
+import { View, Text, Image, SafeAreaView, TouchableOpacity } from "react-native";
+import { useState } from "react";
+import { Stack } from "expo-router";
 
-export default function Page() {
-	return (
-		<View style={styles.container}>
-			<View style={styles.wrapper}>
-				<Text style={styles.title}>Home Page</Text>
-				<Link href="/login">
-					<Text style={styles.linkText}>Login</Text>
-				</Link>
-				<Link href="/user-page">
-					<Text style={styles.linkText}>User Page</Text>
-				</Link>
-				{/* Use the ApiTestButton component */}
-				<ApiTestButton />
-			</View>
-		</View>
-	);
+import { LoginForm, RegisterForm } from "../components";
+
+const logo = require('../assets/images/logo.png')
+export default function LoginPage(){
+   const [isLogin, setIsLogin] = useState(true);
+   const displayForm = () => {
+      if (isLogin) {
+         return <LoginForm />
+      }
+      else {
+         return <RegisterForm />
+      }
+   }
+   return(
+      <SafeAreaView style={{ flex: 1, justifyContent: "center", alignItems: "center"}}>
+         <Stack.Screen />
+         <View >
+            <TouchableOpacity onPress={()=>setIsLogin(true)}>
+               <Text>Login</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={()=>setIsLogin(false)}>
+               <Text>RegisterForm</Text>
+            </TouchableOpacity>
+         </View>
+         {displayForm()}
+
+      </SafeAreaView> 
+   )
 }
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		flexDirection: "column",
-		justifyContent: "center",
-		alignItems: "center",
-		padding: 20,
-	},
-	wrapper: {
-		flex: 1,
-		flexDirection: "column",
-		justifyContent: "center",
-		width: "80%",
-		padding: 20,
-		borderWidth: 3,
-		borderStyle: "solid",
-		borderColor: "black",
-	},
-	title: {
-		fontSize: 24,
-		marginBottom: 20,
-		color: "green",
-		fontWeight: "bold",
-	},
-	linkText: {
-		fontSize: 18,
-		marginBottom: 10,
-	},
-});
