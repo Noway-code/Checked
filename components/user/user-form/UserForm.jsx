@@ -14,7 +14,7 @@ export default function UserPageContent() {
 	const [posts, setPosts] = useState([]);
 
 	useEffect(() => {
-	// Fetch user details and posts when the component mounts
+		// Fetch user details and posts when the component mounts
 		fetchUserData();
 		fetchUserPosts()
 	}, []);
@@ -32,6 +32,12 @@ export default function UserPageContent() {
 			} else {
 				console.error('Decoded token or username is null.');
 			}
+			if (decodedToken && decodedToken.id) {
+				setUsername(decodedToken.id);
+			} else {
+				console.error('Decoded token or username is null.');
+			}
+
 		} catch (error) {
 			console.error('Error fetching user data:', error);
 			// Handle the error accordingly
@@ -86,19 +92,21 @@ export default function UserPageContent() {
 	return (
 		<View style={styles.container}>
 			{/*Feel Free to change the styling I was just experimenting*/}
+			<Text style={styles.text}>Username: {username}</Text>
+			<Text style={styles.text}>Username: {id}</Text>
 			<TouchableOpacity activeOpacity={.6}>
 				<LinearGradient onPress={handleCreatePost}
 					// Button Linear Gradient
-					colors={['#72cb68', '#31982b', '#1b9111']}
-					style={styles.button}>
+					            colors={['#72cb68', '#31982b', '#1b9111']}
+					            style={styles.button}>
 					<Text style={styles.text}>Make Post</Text>
 				</LinearGradient>
 			</TouchableOpacity>
 			<TouchableOpacity activeOpacity={.8}>
 				<LinearGradient onPress={handleCreatePost}
 					// Button Linear Gradient
-		            colors={['#045e62', '#1a6164', '#194b4d']}
-		            style={styles.button}>
+					            colors={['#045e62', '#1a6164', '#194b4d']}
+					            style={styles.button}>
 					<Text style={styles.text}>View Post</Text>
 				</LinearGradient>
 			</TouchableOpacity>

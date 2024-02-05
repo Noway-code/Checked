@@ -42,7 +42,7 @@ export default function LoginForm() {
          handleSubmit();
       }
    };
-   
+
    const handleSubmit = async () => {
       try {
          // set url for request
@@ -71,6 +71,7 @@ export default function LoginForm() {
             // Store the token securely
             await SecureStore.setItemAsync('userToken', res.token);
             console.log("Login Successful! User's Token: " + res.token);
+
             router.push('/');
          }
       } catch (error) {
@@ -84,7 +85,7 @@ export default function LoginForm() {
          <TextInput placeholder="Username"
             style={styles.formInput}
             onChangeText={setUsername}/>
-         
+
          {usernameError.length == 0
             ? null
             : (
@@ -98,7 +99,7 @@ export default function LoginForm() {
          <TextInput placeholder="Password"
             style={styles.formInput}
             onChangeText={setPassword}/>
-         
+
          {passwordError.length == 0
             ? null
             : (
@@ -108,7 +109,7 @@ export default function LoginForm() {
                   ))}
                </View>)
          }
-         
+
          <TouchableOpacity onPress={handleLogin}>
             <Text>Login</Text>
          </TouchableOpacity>

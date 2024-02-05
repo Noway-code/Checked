@@ -7,6 +7,7 @@ import styles from './registerform.style';
 
 import * as SecureStore from 'expo-secure-store';
 import axios from 'axios';
+import {router} from "expo-router";
 
 // form type for user registration
 export default function RegisterForm() {
@@ -20,7 +21,7 @@ export default function RegisterForm() {
    const [firstNameError, setFirstNameError] = useState([]);
    const [lastNameError, setLastNameError] = useState([]);
 
-   
+
 	const handleRegister = () => {
       const usernameTest = isValidUsername(username);
       const passwordTest = isValidPassword(password);
@@ -46,13 +47,13 @@ export default function RegisterForm() {
       // update last name errors
 
       // if there are no username errors and no password errors, call the handle submit function
-      if (usernameTest.length == 0 && passwordTest.length == 0 && firstNameTest.length == 0 
+      if (usernameTest.length == 0 && passwordTest.length == 0 && firstNameTest.length == 0
           && lastNameTest.length == 0)
       {
          handleSubmit();
       }
 	}
-   
+
    const handleSubmit = async () => {
       try {
 			// set url for request
@@ -84,9 +85,10 @@ export default function RegisterForm() {
 				// Print out the user's token
 				if (res.token) {
 					console.log("User's Token: " + res.token);
-
 					// You can also store the token in SecureStore here if needed
 					await SecureStore.setItemAsync('userToken', res.token);
+					// Redirect to the home page
+					router.push('/');
 				}
 			}
 		} catch (error) {
