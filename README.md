@@ -13,10 +13,13 @@ friends as they accomplish them. The app allows users to share posts with photos
 - **Achievement Overview:** Users have a dedicated page showcasing an overview of their completed goals and notable achievements, fostering a sense of
   pride and accomplishment.
 
-## Contributing
+## Contributors
+- Camilo Alvarez (Project Lead/API)
+- Kevin Vu (Front-end)
+- Jacob Dioso (Front-end)
+- Darren Bansil (API)
+- Jose Cuyugan (Database)
 
-We welcome contributions to Checked! If you find a bug, have a feature request, or want to contribute in any other way, please open an issue or submit
-a pull request.
 
 ## License
 
